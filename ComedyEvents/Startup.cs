@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using ComedyEvents.Context;
+using ComedyEvents.Dto;
 using ComedyEvents.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +21,16 @@ namespace ComedyEvents
         {
             services.AddDbContext<EventContext>();
             services.AddScoped<IEventRepository, EventRepository>();
+            //services.AddAutoMapper(typeof(EventProfile));
+
+            //var mappingConfig = new MapperConfiguration(mc =>
+            //{
+            //    mc.CreateMap<EventDto[], EventArgs[]>();
+            //});
+
+            //IMapper mapper = mappingConfig.CreateMapper();
+            services.AddAutoMapper();
+
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2)
                              .AddJsonOptions(o => o.SerializerSettings.ReferenceLoopHandling =
                                                   Newtonsoft.Json.ReferenceLoopHandling.Ignore);
