@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ComedyEvents.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class NeueMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,7 +50,7 @@ namespace ComedyEvents.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     EventName = table.Column<string>(nullable: true),
                     EventDate = table.Column<DateTime>(nullable: false),
-                    VenueId = table.Column<int>(nullable: true)
+                    VenueId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,7 +60,7 @@ namespace ComedyEvents.Migrations
                         column: x => x.VenueId,
                         principalTable: "Venues",
                         principalColumn: "VenueId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -71,8 +71,8 @@ namespace ComedyEvents.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     GigHeadline = table.Column<string>(nullable: true),
                     GigLengthInMinutes = table.Column<int>(nullable: false),
-                    EventId = table.Column<int>(nullable: true),
-                    ComedianId = table.Column<int>(nullable: true)
+                    EventId = table.Column<int>(nullable: false),
+                    ComedianId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,13 +82,13 @@ namespace ComedyEvents.Migrations
                         column: x => x.ComedianId,
                         principalTable: "Comedians",
                         principalColumn: "ComedianId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Gigs_Events_EventId",
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "EventId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(

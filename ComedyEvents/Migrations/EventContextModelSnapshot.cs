@@ -62,7 +62,7 @@ namespace ComedyEvents.Migrations
 
                     b.Property<string>("EventName");
 
-                    b.Property<int?>("VenueId");
+                    b.Property<int>("VenueId");
 
                     b.HasKey("EventId");
 
@@ -86,9 +86,9 @@ namespace ComedyEvents.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ComedianId");
+                    b.Property<int>("ComedianId");
 
-                    b.Property<int?>("EventId");
+                    b.Property<int>("EventId");
 
                     b.Property<string>("GigHeadline");
 
@@ -163,18 +163,21 @@ namespace ComedyEvents.Migrations
                 {
                     b.HasOne("ComedyEvents.Models.Venue", "Venue")
                         .WithMany()
-                        .HasForeignKey("VenueId");
+                        .HasForeignKey("VenueId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ComedyEvents.Models.Gig", b =>
                 {
                     b.HasOne("ComedyEvents.Models.Comedian", "Comedian")
                         .WithMany()
-                        .HasForeignKey("ComedianId");
+                        .HasForeignKey("ComedianId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ComedyEvents.Models.Event", "Event")
                         .WithMany("Gigs")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -21,14 +21,6 @@ namespace ComedyEvents
         {
             services.AddDbContext<EventContext>();
             services.AddScoped<IEventRepository, EventRepository>();
-            //services.AddAutoMapper(typeof(EventProfile));
-
-            //var mappingConfig = new MapperConfiguration(mc =>
-            //{
-            //    mc.CreateMap<EventDto[], EventArgs[]>();
-            //});
-
-            //IMapper mapper = mappingConfig.CreateMapper();
             services.AddAutoMapper();
 
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2)
